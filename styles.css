@@ -24,7 +24,10 @@ h3{
 .square{
     height: 120px;
     width: 120px;
-    padding: 10px;;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
 }
 #square1{
