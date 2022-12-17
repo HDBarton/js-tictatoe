@@ -2,3 +2,25 @@ body{
     display: flex;
     font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
 }
+h1{
+  align-items: center;  
+}
+h3{
+    align-items: center;
+}
+#gameboard{
+    display: flex;
+    flex-direction: column;
+}
+#row1{
+    display: flex;
+    flex-direction: row;
+}
+#row2{
+    display: flex;
+    flex-direction: row;
+}
+#row3{
+    display: flex;
+    flex: row;
+}
