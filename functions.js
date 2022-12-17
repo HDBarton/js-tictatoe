@@ -1,13 +1,22 @@
 // Try to have as little global code as possible
+players = 0;
 
 // Build the logic that checks for when the game is over! Should check for 3-in-a-row and a tie.
 const Gameboard = () =>{
-    board = [];
+    board = [[], [], []];
 };
 
 // allow players to put in their names
-const Player = (() =>{
-
+const Player = ((name) =>{
+    players +=1;
+    if (players == 1){
+      playerToken = "X"
+    }else if (players == 2){
+        playerToken = "0";
+    } else{
+        alert("There can only be 2 players!");
+    }
+    this.sayPlayer = `Player 1: {$name}`;
 })();
 
 // Build the functions that allow players to add marks to a specific spot on the board, and then tie it to the DOM, 
