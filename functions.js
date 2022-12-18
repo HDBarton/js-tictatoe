@@ -9,14 +9,15 @@ const Gameboard = () =>{
 // allow players to put in their names
 const Player = ((name) =>{
     players +=1;
+    let playerToken = "";
     if (players == 1){
-      playerToken = "X"
+      playerToken = "X";
     }else if (players == 2){
         playerToken = "0";
     } else{
         alert("There can only be 2 players!");
     }
-    this.sayPlayer = `Player 1: {$name}`;
+    this.sayPlayer = `Player ${playerToken}: ${name}`;
 })();
 
 // Build the functions that allow players to add marks to a specific spot on the board, and then tie it to the DOM, 
