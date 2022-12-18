@@ -1,6 +1,14 @@
 // Try to have as little global code as possible
 players = 0;
 
+function openPlayerBox() {
+  document.getElementById("add-players-form").style.display = "block";
+}
+// TODO: need to make sure button remains if required content isn't filled in
+function closeForm(){
+    document.getElementById("close-form").style.display = "none";
+}
+
 // Build the logic that checks for when the game is over! Should check for 3-in-a-row and a tie.
 const Gameboard = () =>{
     board = [[], [], []];
@@ -12,11 +20,8 @@ const Player = ((name) =>{
     let playerToken = "";
     if (players == 1){
       playerToken = "X";
-    }else if (players == 2){
+    }else {
         playerToken = "0";
-    } else{
-        alert("There can only be 2 players!");
-    }
     this.sayPlayer = `Player ${playerToken}: ${name}`;
 })();
 

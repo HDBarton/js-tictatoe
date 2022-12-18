@@ -11,8 +11,22 @@
 <body>
     <h1>Tic Tac Toe</h1>
     <p><h3>Click a square on the gameboard to make your move.  Good luck!</h3></p>
-    <p>CHOOSE YOUR PLAYERS</p>
-    <p><button id="enterPlayer">Player 1: </button><button id="enterPlayer">Player 2: </button></p>
+    <p><button class="open-button" id="open-form" onclick="openPlayerBox()">CHOOSE YOUR PLAYERS</button></p>
+    <!-- Add players pop-up form-->
+    <div class="form-popup" id="add-players-form">
+        <form action=""javascript:void(0);" class="form-container" id="form">
+            <h2>Add Players</h2>
+            <ul>
+                <li><b>Player 1 (X): </b>
+                <input type="text" name="player1" required>
+                </li>
+                <li><b>Player 2 (X): </b>
+                <input type="text" name="player2" required>
+                </li>
+                <li> <button id="close-form" onclick="closeForm()">Start the game!</button></li>
+            </ul>
+        </form>
+    </div>
     <div id="gameboard">
         <div id="row1">
             <div class="square" id="square1">1</div>
