@@ -1,7 +1,7 @@
 // Try to have as little global code as possible
 const players = 0;
 
-// heper fucntions
+// helper fucntions
 function openPlayerBox() {
   document.getElementById("add-players-form").style.display = "block";
 }
@@ -25,7 +25,6 @@ const Gameboard = () =>{
 // allow players to put in their names
 const Player = ((name) =>{
     // get player names
-    let form = document.getElementById("form");
     const printPlayer1 = () => {
         // TODO: change for whichever works: this, j=orjust directly pulling from DisplayController
         console.log(DisplayController.player1);
@@ -55,6 +54,7 @@ const GameActions = (() =>{
 // renders gameboard array to webpage
 const DisplayController = (() =>{
     // get players names
+    let form = document.getElementById("form");
     const player1 = () => form.elements["player1"];
     const player2 = () => form.elements["player2"];
 })();
