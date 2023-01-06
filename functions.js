@@ -1,4 +1,10 @@
 // Try to have as little global code as possible
+// TODO:
+// 1.) Get player names to populate above game board with symbol
+// 2.) Create mechansim to add token to gameboard for each click, using a mechanism to check which totem was last played
+// 3.) Create a mechanism to check for a win after each click
+// 4.) Create mechansim to check that an action hasn't already been played on the square being clicked and an alert if so
+// 5.) OPTIONAL: Keep game from starting until names have been entered
 const players = 0;
 
 // helper fucntions
@@ -18,6 +24,7 @@ function displayPlayer1(){
 }
 
 // Build the logic that checks for when the game is over! Should check for 3-in-a-row and a tie.
+// MODULE
 const Gameboard = () =>{
     board = [[], [], []];
 };
@@ -52,6 +59,7 @@ const GameActions = (() =>{
 })();
 
 // renders gameboard array to webpage
+//SUGGESTED MODULE
 const DisplayController = (() =>{
     // get players names
     let form = document.getElementById("form");

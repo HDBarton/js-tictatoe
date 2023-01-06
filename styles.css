@@ -4,6 +4,10 @@ body{
     font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
     align-items: center;
 }
+p{
+    margin: 5px;
+    padding: 5px;
+}
 h1{
   align-items: center;  
   margin: 0px;
@@ -11,6 +15,14 @@ h1{
 h3{
     align-items: center;
     margin: 0px;
+    padding-bottom: 0px;
+}
+#playerSection{
+    display: flex;
+    flex-direction: row;
+    padding: 30px;
+    font-weight: bolder;
+    margin: 10px;
 }
 #gameboard{
     display: grid;
@@ -25,7 +37,9 @@ h3{
 }
 button{
     background-color:#cef5f0;
-    margin-bottom: 45px;
+    margin-bottom: 30px;
+    margin-top: 0px;
+    padding-top: 0px;
 }
 .form-container{
     max-width: 600px;
