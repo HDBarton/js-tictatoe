@@ -33,7 +33,7 @@ const Gameboard = () =>{
 const Player = ((name) =>{
     // get player names
     const printPlayer1 = () => {
-        // TODO: change for whichever works: this, j=orjust directly pulling from DisplayController
+        // TODO: change for whichever works: this, or just directly pulling from DisplayController
         console.log(DisplayController.player1);
         let addHere = document.createElement("div");
         addHere.appendChild(DisplayController.player1);
@@ -59,12 +59,24 @@ const GameActions = (() =>{
 })();
 
 // renders gameboard array to webpage
-//SUGGESTED MODULE
-const DisplayController = (() =>{
+// SUGGESTED MODULE
+const DisplayController = (() => {
     // get players names
-    let form = document.getElementById("form");
+    const form = document.getElementById("form");
+    const player1Section = document.getElementById('player1box');
+    const player2Section = document.getElementById('player2box');
+    const player1name = document.createTextNode("Joe");
+    const player2name = document.createTextNode("Susan");
     const player1 = () => form.elements["player1"];
     const player2 = () => form.elements["player2"];
+    const addPlayer1 = () => player1Section.appendChild(player1name);
+    const addPlayer2 = () => player2Section.appendChild(player2name);
+    return {
+        addPlayer1,
+        addPlayer2
+    };
 })();
 
+DisplayController.addPlayer1();
+DisplayController.addPlayer2();
 // Optional work for later: create an AI so that a player can play against the computer
