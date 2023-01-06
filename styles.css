@@ -24,6 +24,9 @@ h3{
     font-weight: bolder;
     margin: 10px;
 }
+#blank{
+    width: 30px;
+}
 #gameboard{
     display: grid;
     grid-template-columns: 1fr, minmax(0, 400px), minmax(0, 400px), minmax(0, 400px), 1fr;
