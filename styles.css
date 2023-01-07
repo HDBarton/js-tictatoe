@@ -23,9 +23,10 @@ h3{
     padding: 30px;
     font-weight: bolder;
     margin: 10px;
+    margin-bottom: 35px;
 }
 #blank{
-    width: 30px;
+    width: 50px;
 }
 #gameboard{
     display: grid;
