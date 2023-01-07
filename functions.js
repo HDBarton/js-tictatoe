@@ -1,6 +1,5 @@
 // Try to have as little global code as possible
 // TODO:
-// 1.) Get player names to populate above game board with symbol
 // 2.) Create mechansim to add token to gameboard for each click, using a mechanism to check which totem was last played
 // 3.) Create a mechanism to check for a win after each click
 // 4.) Create mechansim to check that an action hasn't already been played on the square being clicked and an alert if so
