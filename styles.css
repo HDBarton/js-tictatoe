@@ -25,11 +25,16 @@ h3{
     margin: 10px;
     margin-bottom: 35px;
 }
+.littleBlank{
+    width: 5px;
+}
 #blank{
     width: 50px;
 }
 #gameboard{
     display: grid;
+    font-size: 30px;
+    font-weight: bolder;
     grid-template-columns: 1fr, minmax(0, 400px), minmax(0, 400px), minmax(0, 400px), 1fr;
     grid-template-rows: 1fr, minmax(0, 400px), minmax(0, 400px), minmax(0, 400px), 1fr;
 }

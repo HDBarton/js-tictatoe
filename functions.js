@@ -5,8 +5,8 @@
 // 3.) Create a mechanism to check for a win after each click
 // 4.) Create mechansim to check that an action hasn't already been played on the square being clicked and an alert if so
 // 5.) OPTIONAL: Keep game from starting until names have been entered
-const currentPlayer1 = "";
-const currentPlayer2 = "";
+let currentPlayer1 = "";
+let currentPlayer2 = "";
 const player1Section = document.getElementById('player1box');
 const player2Section = document.getElementById('player2box');
 player1Section.innerHTML = currentPlayer1;
