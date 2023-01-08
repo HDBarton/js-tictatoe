@@ -5,9 +5,7 @@
 // 4.) Create mechansim to check that an action hasn't already been played on the square being clicked and an alert if so
 // 5.) OPTIONAL: Keep game from starting until names have been entered
 
-///////////PLAYER NAME TO BOARD FUNCTIONALITY//////////////////////////////////////////
-let currentPlayer1 = "";
-let currentPlayer2 = "";
+////////////////////ONCLICK FUNCTIONALITY FOR POPUP FORM////////////////////////////
 const onClose = document.getElementById("close-form");
 onClose.onclick = function() {DisplayController.addPlayer1(), DisplayController.addPlayer2(), closeForm()};
 
@@ -73,25 +71,30 @@ const GameActions = (() =>{
 
 const DisplayController = (() => {
     // get players names
+    let currentPlayer1 = "";
+    let currentPlayer2 = "";
     const form = document.getElementById("form");
-    const player1Section = document.getElementById('player1box');
-    const player2Section = document.getElementById('player2box');
+    const getPlayerNames = () => {
+
+    };
     const addPlayer1 = () => {
+        const player1Section = document.getElementById('player1box');
         let player1element = form.elements["player1"];
         let player1name = String(player1element.value);
         let player1 = document.createTextNode(player1name);
         player1Section.appendChild(player1);
         console.log(player1name);
         currentPlayer1 = player1name;
-    }
+    };
     const addPlayer2 = () => {
+        const player2Section = document.getElementById('player2box');
         let player2element = form.elements["player2"];
         let player2name = String(player2element.value);
         let player2 = document.createTextNode(player2name);
         player2Section.appendChild(player2);
         console.log(player2name);
         currentPlayer2 = player2name;
-    }
+    };
     const showMe = () => {
         let text = document.createTextNode("Z");
         let insertHere = document.getElementById("square9");
