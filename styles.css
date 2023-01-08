@@ -79,16 +79,16 @@ li{
     justify-content: center;
 
 }
-#square1{
+#square0{
     border-right: purple 5px solid;
     border-bottom: purple 5px solid;
 }
-#square2{
+#square1{
     border-left: purple 5px solid;
     border-right: purple 5px solid;
     border-bottom: purple 5px solid;
 }
-#square3{
+#square2{
     border-left: purple 5px solid;
     border-bottom: purple 5px solid;
 }
@@ -98,15 +98,15 @@ li{
     display: flex;
     flex-direction:row;
 }
-#square4{
+#square3{
     border-right: purple 5px solid;
     border-top: purple 5px solid;
     border-bottom: purple 5px solid;
 }
-#square5{
+#square4{
     border: purple 5px solid;
 }
-#square6{
+#square5{
     border-left: purple 5px solid;
     border-top: purple 5px solid;
     border-bottom: purple 5px solid;
@@ -117,16 +117,16 @@ li{
     display: flex;
     flex-direction:row;
 }
-#square7{
+#square6{
     border-right: purple 5px solid;
     border-top: purple 5px solid;
 }
-#square8{
+#square7{
     border-left: purple 5px solid;
     border-right: purple 5px solid;
     border-top: purple 5px solid;
 }
-#square9{
+#square8{
     border-left: purple 5px solid;
     border-top: purple 5px solid;
 }

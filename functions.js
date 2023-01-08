@@ -9,6 +9,10 @@
 const onClose = document.getElementById("close-form");
 onClose.onclick = function() {DisplayController.addPlayer1(), DisplayController.addPlayer2(), closeForm()};
 
+///////////////////Onclick doesn't seem to work from inside a function/////////////////
+// const startGame = DisplayController();
+// startGame.closePopUp();
+
 /////////////////TESTING FUNCTIONALITY////////////////////////////////////////////////
 const testArea = document.getElementById("test-button");
 testArea.onclick = function() {showMe(), DisplayController.showMe()};
@@ -68,15 +72,11 @@ const GameActions = (() =>{
 // renders gameboard array to webpage
 // SUGGESTED MODULE
 
-
+//get and display player names
 const DisplayController = (() => {
-    // get players names
     let currentPlayer1 = "";
     let currentPlayer2 = "";
     const form = document.getElementById("form");
-    const getPlayerNames = () => {
-
-    };
     const addPlayer1 = () => {
         const player1Section = document.getElementById('player1box');
         let player1element = form.elements["player1"];
@@ -95,11 +95,16 @@ const DisplayController = (() => {
         console.log(player2name);
         currentPlayer2 = player2name;
     };
+    /////////////////ONCLICK appears not to function from within a Factory Function//////////////////////////
+    // const closePopUp = () => {
+    //     const onClose = document.getElementById("close-form");
+    //     onClose.onclick = function() {addPlayer1(), addPlayer2(), closeForm()};
+    // };
     const showMe = () => {
         let text = document.createTextNode("Z");
         let insertHere = document.getElementById("square9");
         insertHere.appendChild(text);
-    }
+    };
     return {
         addPlayer1,
         addPlayer2,
