@@ -53,8 +53,16 @@ function placePiece(squareID) {
 // Build the logic that checks for when the game is over! Should check for 3-in-a-row and a tie.
 // MODULE
 // X = 1, Y = 2
-const Gameboard = () =>{
+const Gameboard = (square, playerPiece) =>{
     board = [[], [], []];
+    const getRow = () => {
+        if (-1 < square && square < 3) {
+            
+        }
+    }
+    const addMove = (row, square, playerPiece) => {
+
+    }
 };
 
 /////////////////////////PREVIOUS PLAYER FACTORY FUNCTION//////////////////////////////
