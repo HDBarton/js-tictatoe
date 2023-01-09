@@ -6,27 +6,28 @@
 // 5.) OPTIONAL: Keep game from starting until names have been entered
 
 ////////////////////ONCLICK FUNCTIONALITIES (can't seem to be used from within Factory or Module Functions)///////////////////
+//let turn = "X";
 const onClose = document.getElementById("close-form");
 onClose.onclick = function() {DisplayController.addPlayer1(), DisplayController.addPlayer2(), closeForm()};
 //Board listerners for each square on gameboard
 const square0 = document.getElementById("square0");
-square0.onclick = function() {placeX("square0")};
+square0.onclick = function() {placePiece("square0")};
 const square1 = document.getElementById("square1");
-square1.onclick = function() {placeX("square1")};
+square1.onclick = function() {placePiece("square1")};
 const square2 = document.getElementById("square2");
-square2.onclick = function() {placeX("square2")};
+square2.onclick = function() {placePiece("square2")};
 const square3 = document.getElementById("square3");
-square3.onclick = function() {placeX("square3")};
+square3.onclick = function() {placePiece("square3")};
 const square4 = document.getElementById("square4");
-square4.onclick = function() {placeX("square4")};
+square4.onclick = function() {placePiece("square4")};
 const square5 = document.getElementById("square5");
-square5.onclick = function() {placeX("square5")};
+square5.onclick = function() {placePiece("square5")};
 const square6 = document.getElementById("square6");
-square6.onclick = function() {placeX("square6")};
+square6.onclick = function() {placePiece("square6")};
 const square7 = document.getElementById("square7");
-square7.onclick = function() {placeX("square7")};
+square7.onclick = function() {placePiece("square7")};
 const square8 = document.getElementById("square8");
-square8.onclick = function() {placeX("square8")};
+square8.onclick = function() {placePiece("square8")};
 
 /////////////////TESTING FUNCTIONALITY////////////////////////////////////////////////
 const testArea = document.getElementById("test-button");
@@ -42,8 +43,10 @@ function closeForm(){
     document.getElementById("add-players-form").style.display = "none";
 }
 //WORKING ON THIS: FIGURE OUT HOW TO INSERT AN X IN SQUARE ZERO
-function placeX(squareID) {
-    text = document.createTextNode("X");
+function placePiece(squareID) {
+    thisGameActions.changePlayer();
+    let playerPiece = thisGameActions.currentPlayer();
+    text = document.createTextNode(playerPiece);
     document.getElementById(squareID).appendChild(text);
 }
 /////////////////////////////GAMEBOARD FUNCTIONALITY///////////////////////////////////
@@ -84,9 +87,21 @@ const Gameboard = () =>{
 // Don’t forget the logic that keeps players from playing in spots that are already taken!
 // include a button to start/restart the game 
 // and add a display element that congratulates the winning player
-const GameActions = (() =>{
+const GameActions = () => {
+    let turn = "O";
+    const changePlayer = () => {
+        if (turn == "O") {
+            turn = "X";
+        } else {
+            turn = "O";
+        }
+    };
+    const currentPlayer = () => turn;
 
-})();
+    return {changePlayer, currentPlayer};
+}
+////////////////////START GAME ACTION FUNCTIONALITIES////////////////////////////////////
+const thisGameActions = GameActions();
 
 // renders gameboard array to webpage
 // SUGGESTED MODULE
