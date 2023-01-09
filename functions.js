@@ -5,17 +5,32 @@
 // 4.) Create mechansim to check that an action hasn't already been played on the square being clicked and an alert if so
 // 5.) OPTIONAL: Keep game from starting until names have been entered
 
-////////////////////ONCLICK FUNCTIONALITY FOR POPUP FORM////////////////////////////
+////////////////////ONCLICK FUNCTIONALITIES (can't seem to be used from within Factory or Module Functions)///////////////////
 const onClose = document.getElementById("close-form");
 onClose.onclick = function() {DisplayController.addPlayer1(), DisplayController.addPlayer2(), closeForm()};
-
-///////////////////Onclick doesn't seem to work from inside a function/////////////////
-// const startGame = DisplayController();
-// startGame.closePopUp();
+//Board listerners for each square on gameboard
+const square0 = document.getElementById("square0");
+square0.onclick = function() {placeX("square0")};
+const square1 = document.getElementById("square1");
+square1.onclick = function() {placeX("square1")};
+const square2 = document.getElementById("square2");
+square2.onclick = function() {placeX("square2")};
+const square3 = document.getElementById("square3");
+square3.onclick = function() {placeX("square3")};
+const square4 = document.getElementById("square4");
+square4.onclick = function() {placeX("square4")};
+const square5 = document.getElementById("square5");
+square5.onclick = function() {placeX("square5")};
+const square6 = document.getElementById("square6");
+square6.onclick = function() {placeX("square6")};
+const square7 = document.getElementById("square7");
+square7.onclick = function() {placeX("square7")};
+const square8 = document.getElementById("square8");
+square8.onclick = function() {placeX("square8")};
 
 /////////////////TESTING FUNCTIONALITY////////////////////////////////////////////////
 const testArea = document.getElementById("test-button");
-testArea.onclick = function() {showMe(), DisplayController.showMe()};
+testArea.onclick = function() {showMe()};
 
 
 // helper functions
@@ -26,7 +41,11 @@ function openPlayerBox() {
 function closeForm(){
     document.getElementById("add-players-form").style.display = "none";
 }
-
+//WORKING ON THIS: FIGURE OUT HOW TO INSERT AN X IN SQUARE ZERO
+function placeX(squareID) {
+    text = document.createTextNode("X");
+    document.getElementById(squareID).appendChild(text);
+}
 /////////////////////////////GAMEBOARD FUNCTIONALITY///////////////////////////////////
 // Build the logic that checks for when the game is over! Should check for 3-in-a-row and a tie.
 // MODULE
@@ -100,11 +119,11 @@ const DisplayController = (() => {
     //     const onClose = document.getElementById("close-form");
     //     onClose.onclick = function() {addPlayer1(), addPlayer2(), closeForm()};
     // };
-    const showMe = () => {
-        let text = document.createTextNode("Z");
-        let insertHere = document.getElementById("square9");
-        insertHere.appendChild(text);
-    };
+    // const showMe = () => {
+    //     let text = document.createTextNode("Z");
+    //     let insertHere = document.getElementById("square9");
+    //     insertHere.appendChild(text);
+    // };
     return {
         addPlayer1,
         addPlayer2,
