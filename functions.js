@@ -1,6 +1,6 @@
 // Try to have as little global code as possible
 // TODO:
-// 2.) Create mechansim to add token to gameboard for each click, using a mechanism to check which totem was last played
+//////////////////Currently working on adding player move to gameboard
 // 3.) Create a mechanism to check for a win after each click
 // 4.) Create mechansim to check that an action hasn't already been played on the square being clicked and an alert if so
 // 5.) OPTIONAL: Keep game from starting until names have been entered
@@ -42,28 +42,52 @@ function openPlayerBox() {
 function closeForm(){
     document.getElementById("add-players-form").style.display = "none";
 }
-//WORKING ON THIS: FIGURE OUT HOW TO INSERT AN X IN SQUARE ZERO
+//WORKING ON THIS: FIGURE OUT HOW TO INSERT PLAYER PIECE INTO GAMEBOARD OR NOT IF ALREADY PLAYED
 function placePiece(squareID) {
+    let squareString = String(squareID);
+    let squareNum = parseInt(squareString.slice(6, 7));
     thisGameActions.changePlayer();
     let playerPiece = thisGameActions.currentPlayer();
-    text = document.createTextNode(playerPiece);
-    document.getElementById(squareID).appendChild(text);
-}
+    thisGameBoard.addMove(squareNum, playerPiece);
+    if (thisGameBoard.getMoveMade()) {
+        text = document.createTextNode(playerPiece);
+        document.getElementById(squareID).appendChild(text);
+    };
+};
 /////////////////////////////GAMEBOARD FUNCTIONALITY///////////////////////////////////
 // Build the logic that checks for when the game is over! Should check for 3-in-a-row and a tie.
 // MODULE
 // X = 1, Y = 2
-const Gameboard = (square, playerPiece) =>{
-    board = [[], [], []];
-    const getRow = () => {
-        if (-1 < square && square < 3) {
-            
+const Gameboard = () =>{
+    let board = [["", "", ""], ["", "", ""], ["", "", ""]];
+    let moveMade = true;
+    const getRow = (square) => {
+        let row = 3;
+        if (square > 0 && square < 3) {
+            row = 0;
+        } else if (square > 2 && square < 6) {
+            row = 1;
+        } else {
+            row = 2;
         }
-    }
-    const addMove = (row, square, playerPiece) => {
-
-    }
+        return row;
+    };
+    const addMove = (square, playerPiece) => {
+        row = getRow(square);
+        if (board[row][square] == "X" || board[row][square] == "O"){
+            alert("This move has already been played!");
+            moveMade = false;
+        } else {
+            board[row][square] = playerPiece;
+            console.log(`Added ${playerPiece} to row ${row}, square ${square}`);
+            moveMade = true;
+        }
+    };
+    const getMoveMade = () => moveMade;
+    return {addMove, getMoveMade};
 };
+////////////////////////START GAMEBOARD//////////////////////////////
+const thisGameBoard = Gameboard();
 
 /////////////////////////PREVIOUS PLAYER FACTORY FUNCTION//////////////////////////////
 // function displayPlayer1(){
@@ -108,7 +132,7 @@ const GameActions = () => {
 
     return {changePlayer, currentPlayer};
 }
-////////////////////START GAME ACTION FUNCTIONALITIES////////////////////////////////////
+////////////////////START GAME ACTIONS////////////////////////////////////
 const thisGameActions = GameActions();
 
 // renders gameboard array to webpage
