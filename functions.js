@@ -1,14 +1,15 @@
 // Try to have as little global code as possible
 // TODO:
-//////////////////Currently working on adding player move to gameboard
+//////////////////Currently working on checking for a win////////////////////
 // 3.) Create a mechanism to check for a win after each click
 // 4.) Create mechansim to check that an action hasn't already been played on the square being clicked and an alert if so
-// 5.) OPTIONAL: Keep game from starting until names have been entered
+// 5.) Create a function to clear the board when new players are entered
+// 6.) OPTIONAL: Keep game from starting until names have been entered
 
 ////////////////////ONCLICK FUNCTIONALITIES (can't seem to be used from within Factory or Module Functions)///////////////////
 //let turn = "X";
 const onClose = document.getElementById("close-form");
-onClose.onclick = function() {DisplayController.addPlayer1(), DisplayController.addPlayer2(), closeForm()};
+onClose.onclick = function() {DisplayController.addPlayer1(), DisplayController.addPlayer2(), closePlayerForm()};
 //Board listerners for each square on gameboard
 const square0 = document.getElementById("square0");
 square0.onclick = function() {placePiece("square0")};
@@ -35,14 +36,14 @@ testArea.onclick = function() {showMe()};
 
 
 // helper functions
-function openPlayerBox() {
+function openPlayerForm() {
   document.getElementById("add-players-form").style.display = "block";
 }
 // TODO: need to make sure button remains if required content isn't filled in
-function closeForm(){
+function closePlayerForm(){
     document.getElementById("add-players-form").style.display = "none";
 }
-//WORKING ON THIS: FIGURE OUT HOW TO INSERT PLAYER PIECE INTO GAMEBOARD OR NOT IF ALREADY PLAYED
+
 function placePiece(squareID) {
     let squareString = String(squareID);
     let squareNum = parseInt(squareString.slice(6, 7));
@@ -52,6 +53,10 @@ function placePiece(squareID) {
     if (thisGameBoard.getMoveMade()) {
         text = document.createTextNode(playerPiece);
         document.getElementById(squareID).appendChild(text);
+        //check for a win
+        if (checkForWin_X == true || checkEveryElement_O == true) {
+            /////ADD WINNER ANNOUNCEMENT HERE ////////////////////////////////////////////////////////////////////////////////////////////
+        }
     };
 };
 /////////////////////////////GAMEBOARD FUNCTIONALITY///////////////////////////////////
@@ -84,6 +89,46 @@ const Gameboard = () =>{
         }
     };
     const getMoveMade = () => moveMade;
+    //win logic checks in order: rows, then vertical lines, then horizontal left, then horizonatl right
+    const checkEveryElement_X = (player) => player = "X";
+    const checkEveryElement_O = (player) => player = "O";
+    const checkForWin_X = () => {
+        let win = false;
+        for (row of board) {
+            if (board[row].every(checkEveryElement_X)) {
+                win = true;
+            } else if (board[0][0] == "X" && board[1][0] == "X" && board[2][0] == "X") {
+                win = true;
+            } else if (board[0][1] == "X" && board[1][1] == "X" && board[2][1] == "X") {
+                win = true;
+            } else if (board[0][2] == "X" && board[1][2] == "X" && board[2][2] == "X") {
+                win = true;
+            } else if (board[0][0] == "X" && board[1][1] == "X" && board[2][2] == "X") {
+                win = true;
+            } else if (board[0][2] == "X" && board[1][1] == "X" && board[2][0] == "X") {
+                win = true;
+            }
+    };
+    const checkForWin_O = () => {
+        let win = false;
+        for (row of board) {
+            if (board[row].every(checkEveryElement_O)) {
+                win = true;
+            } else if (board[0][0] == "O" && board[1][0] == "O" && board[2][0] == "O") {
+                win = true;
+            } else if (board[0][1] == "O" && board[1][1] == "O" && board[2][1] == "O") {
+                win = true;
+            } else if (board[0][2] == "O" && board[1][2] == "O" && board[2][2] == "O") {
+                win = true;
+            } else if (board[0][0] == "O" && board[1][1] == "O" && board[2][2] == "O") {
+                win = true;
+            } else if (board[0][2] == "O" && board[1][1] == "O" && board[2][0] == "O") {
+                win = true;
+            }
+    };
+    const announceWinner = (player) => {
+
+    };
     return {addMove, getMoveMade};
 };
 ////////////////////////START GAMEBOARD//////////////////////////////
