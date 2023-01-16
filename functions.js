@@ -54,8 +54,10 @@ function placePiece(squareID) {
         text = document.createTextNode(playerPiece);
         document.getElementById(squareID).appendChild(text);
         //check for a win
-        if (checkForWin_X == true || checkEveryElement_O == true) {
+        if (checkForWin_X == true ) {
             /////ADD WINNER ANNOUNCEMENT HERE ////////////////////////////////////////////////////////////////////////////////////////////
+        } else if (checkForWin_O == true){
+
         }
     };
 };
@@ -97,39 +99,43 @@ const Gameboard = () =>{
         for (row of board) {
             if (board[row].every(checkEveryElement_X)) {
                 win = true;
-            } else if (board[0][0] == "X" && board[1][0] == "X" && board[2][0] == "X") {
-                win = true;
-            } else if (board[0][1] == "X" && board[1][1] == "X" && board[2][1] == "X") {
-                win = true;
-            } else if (board[0][2] == "X" && board[1][2] == "X" && board[2][2] == "X") {
-                win = true;
-            } else if (board[0][0] == "X" && board[1][1] == "X" && board[2][2] == "X") {
-                win = true;
-            } else if (board[0][2] == "X" && board[1][1] == "X" && board[2][0] == "X") {
-                win = true;
-            }
+            } 
+        }
+        if (board[0][0] == "X" && board[1][0] == "X" && board[2][0] == "X") {
+            win = true;
+        } else if (board[0][1] == "X" && board[1][1] == "X" && board[2][1] == "X") {
+            win = true;
+        } else if (board[0][2] == "X" && board[1][2] == "X" && board[2][2] == "X") {
+            win = true;
+        } else if (board[0][0] == "X" && board[1][1] == "X" && board[2][2] == "X") {
+            win = true;
+        } else if (board[0][2] == "X" && board[1][1] == "X" && board[2][0] == "X") {
+            win = true;
+        }
     };
     const checkForWin_O = () => {
         let win = false;
         for (row of board) {
             if (board[row].every(checkEveryElement_O)) {
                 win = true;
-            } else if (board[0][0] == "O" && board[1][0] == "O" && board[2][0] == "O") {
+            } 
+        }
+        if (board[0][0] == "O" && board[1][0] == "O" && board[2][0] == "O") {
                 win = true;
-            } else if (board[0][1] == "O" && board[1][1] == "O" && board[2][1] == "O") {
-                win = true;
-            } else if (board[0][2] == "O" && board[1][2] == "O" && board[2][2] == "O") {
-                win = true;
-            } else if (board[0][0] == "O" && board[1][1] == "O" && board[2][2] == "O") {
-                win = true;
-            } else if (board[0][2] == "O" && board[1][1] == "O" && board[2][0] == "O") {
-                win = true;
-            }
+        } else if (board[0][1] == "O" && board[1][1] == "O" && board[2][1] == "O") {
+            win = true;
+        } else if (board[0][2] == "O" && board[1][2] == "O" && board[2][2] == "O") {
+            win = true;
+        } else if (board[0][0] == "O" && board[1][1] == "O" && board[2][2] == "O") {
+            win = true;
+        } else if (board[0][2] == "O" && board[1][1] == "O" && board[2][0] == "O") {
+            win = true;
+        }
     };
     const announceWinner = (player) => {
 
     };
-    return {addMove, getMoveMade};
+    return {addMove, getMoveMade, checkForWin_X, checkForWin_O};
 };
 ////////////////////////START GAMEBOARD//////////////////////////////
 const thisGameBoard = Gameboard();
