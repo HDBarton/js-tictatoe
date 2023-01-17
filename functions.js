@@ -54,10 +54,14 @@ function placePiece(squareID) {
         text = document.createTextNode(playerPiece);
         document.getElementById(squareID).appendChild(text);
         //check for a win
-        if (checkForWin_X == true ) {
-            /////ADD WINNER ANNOUNCEMENT HERE ////////////////////////////////////////////////////////////////////////////////////////////
-        } else if (checkForWin_O == true){
-
+        if (thisGameBoard.checkForWin_X == true ) {
+            XWinnerText = `Winner: ${DisplayController.currentPlayer1}!`;
+            textNode = document.createTextNode(XWinnerText);
+            document.getElementById("winnerSection").appendChild(textNode);
+        } else if (thisGameBoard.checkForWin_O == true){
+            XWinnerText = `Winner: ${DisplayController.currentPlayer2}!`;
+            textNode = document.createTextNode(XWinnerText);
+            document.getElementById("winnerSection").appendChild(textNode);
         }
     };
 };
@@ -70,7 +74,7 @@ const Gameboard = () =>{
     let moveMade = true;
     const getRow = (square) => {
         let row = 3;
-        if (square > 0 && square < 3) {
+        if (square > -1 && square < 3) {
             row = 0;
         } else if (square > 2 && square < 6) {
             row = 1;
@@ -81,12 +85,22 @@ const Gameboard = () =>{
     };
     const addMove = (square, playerPiece) => {
         row = getRow(square);
+        index = 0;
+        if (row ==1) {
+            square = square - 3;
+        } else if (row == 2) {
+            square = square -6;
+        }
+
         if (board[row][square] == "X" || board[row][square] == "O"){
             alert("This move has already been played!");
             moveMade = false;
         } else {
             board[row][square] = playerPiece;
-            console.log(`Added ${playerPiece} to row ${row}, square ${square}`);
+            console.log(`Added: ${board[row][square]} to ${board[row]}`);
+            console.log(board[0]);
+            console.log(board[1]);
+            console.log(board[2]);
             moveMade = true;
         }
     };

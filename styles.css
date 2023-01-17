@@ -28,6 +28,11 @@ h3{
 .littleBlank{
     width: 5px;
 }
+#winnerSection{
+    color: red;
+    font-weight: bolder;
+    font-size: 40px;
+}
 #blank{
     width: 50px;
 }
