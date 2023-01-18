@@ -104,11 +104,10 @@ const Gameboard = () =>{
         }
     };
     const getMoveMade = () => moveMade;
-
     const checkForWin_X = () => {
         let win = false;
         for (let row = 0; row < 3; row++)  {
-            if (board[row][0] =="X" && board[row][1] == "X" && board[row][2] == "X") {
+            if (board[row][0] == "X" && board[row][1] == "X" && board[row][2] == "X") {
                 win = true;
             } 
         }
@@ -123,11 +122,11 @@ const Gameboard = () =>{
         } 
         if (board[0][0] == "X" && board[1][1] == "X" && board[2][2] == "X") {
             win = true;
-            printBoard();
         }
         if (board[0][2] == "X" && board[1][1] == "X" && board[2][0] == "X") {
             win = true;
         }
+        return win;
     };
     const checkForWin_O = () => {
         let win = false;
