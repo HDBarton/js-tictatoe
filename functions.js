@@ -37,6 +37,7 @@ testArea.onclick = function() {showMe()};
 // helper functions
 function openPlayerForm() {
   document.getElementById("add-players-form").style.display = "block";
+  document.getElementById("form").reset(); 
   DisplayController.clearBoardDisplay();
   DisplayController.clearPlayers();
   thisGameBoard.clearBoard();
