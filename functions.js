@@ -29,9 +29,9 @@ square7.onclick = function() {placePiece("square7")};
 const square8 = document.getElementById("square8");
 square8.onclick = function() {placePiece("square8")};
 
-/////////////////TESTING FUNCTIONALITY////////////////////////////////////////////////
-const testArea = document.getElementById("test-button");
-testArea.onclick = function() {showMe()};
+/////////////////RESET FUNCTIONALITY////////////////////////////////////////////////
+const resetButton = document.getElementById("reset-board-button");
+resetButton.onclick = function() {DisplayController.clearBoardDisplay(), thisGameBoard.clearBoard()};
 
 
 // helper functions
@@ -212,7 +212,6 @@ const DisplayController = (() => {
     };
     const getPlayer1Name = () => currentPlayer1;
     const getPlayer2Name = () => currentPlayer2;
-    ////////////////////////////////////////////////////CREATING BOARD CLWARING FUNCTIONALITY/////////////////////////////////
     const clearBoardDisplay = () => {
         let elementID = "square";
         for(i = 0; i < 9; i++){
@@ -236,11 +235,7 @@ const DisplayController = (() => {
     //     const onClose = document.getElementById("close-form");
     //     onClose.onclick = function() {addPlayer1(), addPlayer2(), closeForm()};
     // };
-    // const showMe = () => {
-    //     let text = document.createTextNode("Z");
-    //     let insertHere = document.getElementById("square9");
-    //     insertHere.appendChild(text);
-    // };
+
     return {
         addPlayer1,
         addPlayer2,
@@ -250,19 +245,5 @@ const DisplayController = (() => {
         clearPlayers
     };
 })();
-
-let test = [["X", "X", "X"], ["O", "O"]];
-function showMe() {
-    let result = false;
-    if (test[0][0] == "X" && test[0][1] == "X" && test[0][2] == "X"){
-        result = true;
-    }
-    let text = document.createTextNode(result);
-    let insertHere = document.getElementById("test");
-    insertHere.appendChild(text);
-    DisplayController.clearBoardDisplay();
-    thisGameBoard.clearBoard();
-    DisplayController.clearPlayers();
-}
 
 // Optional work for later: create an AI so that a player can play against the computer
