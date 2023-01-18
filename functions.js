@@ -207,8 +207,13 @@ const DisplayController = (() => {
     const getPlayer2Name = () => currentPlayer2;
     ////////////////////////////////////////////////////CREATING BOARD CLWARING FUNCTIONALITY/////////////////////////////////
     const clearBoardDisplay = () => {
+        let elementID = "square";
         for(i = 0; i < 9; i++){
-
+            thisID = elementID + String(i);
+            squareLocation = document.getElementById(thisID);
+            if (squareLocation.hasChildNodes()){
+                squareLocation.removeChild(squareLocation.firstChild);
+            }
         }
     };
     /////////////////ONCLICK appears not to function from within a Factory Function//////////////////////////
@@ -225,7 +230,8 @@ const DisplayController = (() => {
         addPlayer1,
         addPlayer2,
         getPlayer1Name,
-        getPlayer2Name
+        getPlayer2Name, 
+        clearBoardDisplay
     };
 })();
 
@@ -238,6 +244,7 @@ function showMe() {
     let text = document.createTextNode(result);
     let insertHere = document.getElementById("test");
     insertHere.appendChild(text);
+    DisplayController.clearBoardDisplay();
 }
 
 // Optional work for later: create an AI so that a player can play against the computer
