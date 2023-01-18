@@ -151,12 +151,15 @@ const Gameboard = () =>{
         }
         return win;
     };
+    const clearBoard = () => {
+        board = [["", "", ""], ["", "", ""], ["", "", ""]];
+    };
     const printBoard = (player) => {
         console.log(board[0]);
         console.log(board[1]);
         console.log(board[2]);
     };
-    return {addMove, getMoveMade, checkForWin_X, checkForWin_O, printBoard};
+    return {addMove, getMoveMade, checkForWin_X, checkForWin_O, printBoard, clearBoard};
 };
 ////////////////////////START GAMEBOARD//////////////////////////////
 const thisGameBoard = Gameboard();
@@ -216,6 +219,14 @@ const DisplayController = (() => {
             }
         }
     };
+    const clearPlayers = () => {
+        let currentPlayer1 = "";
+        let currentPlayer2 = "";
+        const player1Section = document.getElementById('player1box');
+        player1Section.removeChild(player1Section.firstChild);
+        const player2Section = document.getElementById('player2box');
+        player2Section.removeChild(player2Section.firstChild);
+    };
     /////////////////ONCLICK appears not to function from within a Factory Function//////////////////////////
     // const closePopUp = () => {
     //     const onClose = document.getElementById("close-form");
@@ -231,7 +242,8 @@ const DisplayController = (() => {
         addPlayer2,
         getPlayer1Name,
         getPlayer2Name, 
-        clearBoardDisplay
+        clearBoardDisplay,
+        clearPlayers
     };
 })();
 
@@ -245,6 +257,8 @@ function showMe() {
     let insertHere = document.getElementById("test");
     insertHere.appendChild(text);
     DisplayController.clearBoardDisplay();
+    thisGameBoard.clearBoard();
+    DisplayController.clearPlayers();
 }
 
 // Optional work for later: create an AI so that a player can play against the computer
