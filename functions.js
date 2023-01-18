@@ -43,7 +43,8 @@ function openPlayerForm() {
 function closePlayerForm(){
     document.getElementById("add-players-form").style.display = "none";
 }
-
+//Places piece, checks if gameboard slot alreayd full, adds to gameboard array, checks for a win
+//Need to freeze or reset the board after a win
 function placePiece(squareID) {
     let squareString = String(squareID);
     let squareNum = parseInt(squareString.slice(6, 7));
@@ -53,13 +54,15 @@ function placePiece(squareID) {
     if (thisGameBoard.getMoveMade()) {
         text = document.createTextNode(playerPiece);
         document.getElementById(squareID).appendChild(text);
+        console.log(thisGameBoard.checkForWin_X(), thisGameBoard.checkForWin_O());
+        console.log(thisGameBoard.printBoard());
         //check for a win
-        if (thisGameBoard.checkForWin_X == true ) {
-            XWinnerText = `Winner: ${DisplayController.currentPlayer1}!`;
+        if (thisGameBoard.checkForWin_X()) {
+            XWinnerText = `Winner: ${DisplayController.getPlayer1Name()}!`;
             textNode = document.createTextNode(XWinnerText);
             document.getElementById("winnerSection").appendChild(textNode);
-        } else if (thisGameBoard.checkForWin_O == true){
-            XWinnerText = `Winner: ${DisplayController.currentPlayer2}!`;
+        } else if (thisGameBoard.checkForWin_O()){
+            XWinnerText = `Winner: ${DisplayController.getPlayer2Name()}!`;
             textNode = document.createTextNode(XWinnerText);
             document.getElementById("winnerSection").appendChild(textNode);
         }
@@ -91,65 +94,71 @@ const Gameboard = () =>{
         } else if (row == 2) {
             square = square -6;
         }
-
         if (board[row][square] == "X" || board[row][square] == "O"){
             alert("This move has already been played!");
             moveMade = false;
         } else {
             board[row][square] = playerPiece;
             console.log(`Added: ${board[row][square]} to ${board[row]}`);
-            console.log(board[0]);
-            console.log(board[1]);
-            console.log(board[2]);
             moveMade = true;
         }
     };
     const getMoveMade = () => moveMade;
-    //win logic checks in order: rows, then vertical lines, then horizontal left, then horizonatl right
-    const checkEveryElement_X = (player) => player = "X";
-    const checkEveryElement_O = (player) => player = "O";
+
     const checkForWin_X = () => {
         let win = false;
-        for (row of board) {
-            if (board[row].every(checkEveryElement_X)) {
+        for (let row = 0; row < 3; row++)  {
+            if (board[row][0] =="X" && board[row][1] == "X" && board[row][2] == "X") {
                 win = true;
             } 
         }
         if (board[0][0] == "X" && board[1][0] == "X" && board[2][0] == "X") {
             win = true;
-        } else if (board[0][1] == "X" && board[1][1] == "X" && board[2][1] == "X") {
+        } 
+        if (board[0][1] == "X" && board[1][1] == "X" && board[2][1] == "X") {
             win = true;
-        } else if (board[0][2] == "X" && board[1][2] == "X" && board[2][2] == "X") {
+        }
+        if (board[0][2] == "X" && board[1][2] == "X" && board[2][2] == "X") {
             win = true;
-        } else if (board[0][0] == "X" && board[1][1] == "X" && board[2][2] == "X") {
+        } 
+        if (board[0][0] == "X" && board[1][1] == "X" && board[2][2] == "X") {
             win = true;
-        } else if (board[0][2] == "X" && board[1][1] == "X" && board[2][0] == "X") {
+            printBoard();
+        }
+        if (board[0][2] == "X" && board[1][1] == "X" && board[2][0] == "X") {
             win = true;
         }
     };
     const checkForWin_O = () => {
         let win = false;
-        for (row of board) {
-            if (board[row].every(checkEveryElement_O)) {
+        for (let row = 0; row < 3; row++) {
+            if (board[row][0] =="O" && board[row][1] == "O" && board[row][2] == "O") {
                 win = true;
-            } 
+            }
         }
         if (board[0][0] == "O" && board[1][0] == "O" && board[2][0] == "O") {
-                win = true;
-        } else if (board[0][1] == "O" && board[1][1] == "O" && board[2][1] == "O") {
-            win = true;
-        } else if (board[0][2] == "O" && board[1][2] == "O" && board[2][2] == "O") {
-            win = true;
-        } else if (board[0][0] == "O" && board[1][1] == "O" && board[2][2] == "O") {
-            win = true;
-        } else if (board[0][2] == "O" && board[1][1] == "O" && board[2][0] == "O") {
             win = true;
         }
+        if (board[0][1] == "O" && board[1][1] == "O" && board[2][1] == "O") {
+            win = true;
+        }
+        if (board[0][2] == "O" && board[1][2] == "O" && board[2][2] == "O") {
+            win = true;
+        }
+        if (board[0][0] == "O" && board[1][1] == "O" && board[2][2] == "O") {
+            win = true;
+        }
+        if (board[0][2] == "O" && board[1][1] == "O" && board[2][0] == "O") {
+            win = true;
+        }
+        return win;
     };
-    const announceWinner = (player) => {
-
+    const printBoard = (player) => {
+        console.log(board[0]);
+        console.log(board[1]);
+        console.log(board[2]);
     };
-    return {addMove, getMoveMade, checkForWin_X, checkForWin_O};
+    return {addMove, getMoveMade, checkForWin_X, checkForWin_O, printBoard};
 };
 ////////////////////////START GAMEBOARD//////////////////////////////
 const thisGameBoard = Gameboard();
@@ -226,6 +235,8 @@ const DisplayController = (() => {
         console.log(player2name);
         currentPlayer2 = player2name;
     };
+    const getPlayer1Name = () => currentPlayer1;
+    const getPlayer2Name = () => currentPlayer2;
     /////////////////ONCLICK appears not to function from within a Factory Function//////////////////////////
     // const closePopUp = () => {
     //     const onClose = document.getElementById("close-form");
@@ -239,13 +250,18 @@ const DisplayController = (() => {
     return {
         addPlayer1,
         addPlayer2,
-        showMe
+        getPlayer1Name,
+        getPlayer2Name
     };
 })();
 
-
+let test = [["X", "X", "X"], ["O", "O"]];
 function showMe() {
-    let text = document.createTextNode("Here I am!");
+    let result = false;
+    if (test[0][0] == "X" && test[0][1] == "X" && test[0][2] == "X"){
+        result = true;
+    }
+    let text = document.createTextNode(result);
     let insertHere = document.getElementById("test");
     insertHere.appendChild(text);
 }

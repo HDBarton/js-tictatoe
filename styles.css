@@ -87,15 +87,18 @@ li{
 #square0{
     border-right: purple 5px solid;
     border-bottom: purple 5px solid;
+    margin-top: 20px;
 }
 #square1{
     border-left: purple 5px solid;
     border-right: purple 5px solid;
     border-bottom: purple 5px solid;
+    margin-top: 20px;
 }
 #square2{
     border-left: purple 5px solid;
     border-bottom: purple 5px solid;
+    margin-top: 20px;
 }
 #row1{
     grid-column: 2/5;
