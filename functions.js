@@ -37,6 +37,9 @@ testArea.onclick = function() {showMe()};
 // helper functions
 function openPlayerForm() {
   document.getElementById("add-players-form").style.display = "block";
+  DisplayController.clearBoardDisplay();
+  DisplayController.clearPlayers();
+  thisGameBoard.clearBoard();
 }
 // TODO: need to make sure button remains if required content isn't filled in
 function closePlayerForm(){
