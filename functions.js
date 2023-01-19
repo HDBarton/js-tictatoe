@@ -29,7 +29,7 @@ square8.onclick = function() {placePiece("square8")};
 
 // Reset Functionality
 const resetButton = document.getElementById("reset-board-button");
-resetButton.onclick = function() {DisplayController.clearBoardDisplay(), thisGameBoard.clearBoard()};
+resetButton.onclick = function() {DisplayController.clearBoardDisplay(), thisGameBoard.clearBoard(), DisplayController.clearWinners()};
 
 
 // Helper functions
@@ -38,8 +38,9 @@ function openPlayerForm() {
   document.getElementById("form").reset(); 
   DisplayController.clearBoardDisplay();
   DisplayController.clearPlayers();
+  DisplayController.clearWinners();
   thisGameBoard.clearBoard();
-}
+};
 // TODO: need to make sure button remains if required content isn't filled in
 function closePlayerForm(){
     document.getElementById("add-players-form").style.display = "none";
@@ -241,6 +242,10 @@ const DisplayController = (() => {
         const player2Section = document.getElementById('player2box');
         player2Section.removeChild(player2Section.firstChild);
     };
+    const clearWinners = () => {
+        const winnerSection  = document.getElementById('winnerSection');
+        winnerSection.removeChild(winnerSection.firstChild);
+    };
     /////////////////ONCLICK appears not to function from within a Factory Function//////////////////////////
     // const closePopUp = () => {
     //     const onClose = document.getElementById("close-form");
@@ -253,7 +258,8 @@ const DisplayController = (() => {
         getPlayer1Name,
         getPlayer2Name, 
         clearBoardDisplay,
-        clearPlayers
+        clearPlayers,
+        clearWinners
     };
 })();
 
