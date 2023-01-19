@@ -1,15 +1,13 @@
 // Try to have as little global code as possible
 // TODO:
-// 5.) Create a function to clear the board, winner section, and player names when new playername form is opened
-// 6.) Add a button for another round under the gameboard which clears the board and winner section but not player names
-// 7.) Add a button at the bottom for Clear All which also clears player names
+// 7.) Code cleanup and display functionality reduction
 // 8.) OPTIONAL: Keep game from starting until names have been entered
 
 ////////////////////ONCLICK FUNCTIONALITIES (can't seem to be used from within Factory or Module Functions)///////////////////
 //let turn = "X";
 const onClose = document.getElementById("close-form");
 onClose.onclick = function() {DisplayController.addPlayer1(), DisplayController.addPlayer2(), closePlayerForm()};
-//Board listerners for each square on gameboard
+// Board listerners for each square on gameboard
 const square0 = document.getElementById("square0");
 square0.onclick = function() {placePiece("square0")};
 const square1 = document.getElementById("square1");
@@ -29,12 +27,12 @@ square7.onclick = function() {placePiece("square7")};
 const square8 = document.getElementById("square8");
 square8.onclick = function() {placePiece("square8")};
 
-/////////////////RESET FUNCTIONALITY////////////////////////////////////////////////
+// Reset Functionality
 const resetButton = document.getElementById("reset-board-button");
 resetButton.onclick = function() {DisplayController.clearBoardDisplay(), thisGameBoard.clearBoard()};
 
 
-// helper functions
+// Helper functions
 function openPlayerForm() {
   document.getElementById("add-players-form").style.display = "block";
   document.getElementById("form").reset(); 
@@ -47,7 +45,6 @@ function closePlayerForm(){
     document.getElementById("add-players-form").style.display = "none";
 }
 //Places piece, checks if gameboard slot alreayd full, adds to gameboard array, checks for a win
-//Need to freeze or reset the board after a win
 function placePiece(squareID) {
     let squareString = String(squareID);
     let squareNum = parseInt(squareString.slice(6, 7));
@@ -68,11 +65,16 @@ function placePiece(squareID) {
             XWinnerText = `Winner: ${DisplayController.getPlayer2Name()}!`;
             textNode = document.createTextNode(XWinnerText);
             document.getElementById("winnerSection").appendChild(textNode);
+        } else if (thisGameBoard.checkForDraw()) {
+            drawText = `Draw: ${DisplayController.getPlayer1Name()} and ${DisplayController.getPlayer2Name()} both lose!`;
+            textNode = document.createTextNode(drawText);
+            document.getElementById("winnerSection").appendChild(textNode);
         }
     };
 };
 /////////////////////////////GAMEBOARD FUNCTIONALITY///////////////////////////////////
-// Build the logic that checks for when the game is over! Should check for 3-in-a-row and a tie.
+// Win logic to check for 3-in-a-row vertically, horizontally, and diagonally. 
+// If all spaces are full and there is no winner, logic is here for a draw
 // MODULE
 // X = 1, Y = 2
 const Gameboard = () =>{
@@ -155,6 +157,15 @@ const Gameboard = () =>{
         }
         return win;
     };
+    const checkForDraw = () => {
+        let draw = true;
+        for (let row = 0; row < 3; row++) {
+            if (board[row][0] == "" || board[row][1] == "" ||  board[row][2] == "") {
+                draw = false;
+            }
+        }
+        return draw;
+    };
     const clearBoard = () => {
         board = [["", "", ""], ["", "", ""], ["", "", ""]];
     };
@@ -163,7 +174,7 @@ const Gameboard = () =>{
         console.log(board[1]);
         console.log(board[2]);
     };
-    return {addMove, getMoveMade, checkForWin_X, checkForWin_O, printBoard, clearBoard};
+    return {addMove, getMoveMade, checkForWin_X, checkForWin_O, checkForDraw, printBoard, clearBoard};
 };
 ////////////////////////START GAMEBOARD//////////////////////////////
 const thisGameBoard = Gameboard();
