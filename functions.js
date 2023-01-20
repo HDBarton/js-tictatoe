@@ -3,6 +3,61 @@
 // Find a replacement for alert functionality, per AirBnB styleguide
 // OPTIONAL: Keep game from starting until names have been entered
 
+// TODO: need to make sure button remains if required content isn't filled in
+function closePlayerForm() {
+  document.getElementById('add-players-form').style.display = 'none';
+}
+
+/// ONCLICK FUNCTIONALITIES///////////////////
+// Form closing listener
+const onClose = document.getElementById('close-form');
+onClose.onclick = function () {
+  DisplayController.addPlayer1(), 
+  DisplayController.addPlayer2(), 
+  closePlayerForm()
+};
+
+// Board listerners for each square on gameboard
+const square0 = document.getElementById('square0');
+square0.onclick = function() {thisGameActions.placePiece('square0'); };
+const square1 = document.getElementById('square1');
+square1.onclick = function() {thisGameActions.placePiece('square1'); };
+const square2 = document.getElementById('square2');
+square2.onclick = function() {thisGameActions.placePiece('square2'); };
+const square3 = document.getElementById('square3');
+square3.onclick = function() {thisGameActions.placePiece('square3'); };
+const square4 = document.getElementById('square4');
+square4.onclick = function() {thisGameActions.placePiece('square4'); };
+const square5 = document.getElementById('square5');
+square5.onclick = function() {thisGameActions.placePiece('square5'); };
+const square6 = document.getElementById('square6');
+square6.onclick = function() {thisGameActions.placePiece('square6'); };
+const square7 = document.getElementById('square7');
+square7.onclick = function() {thisGameActions.placePiece('square7'); };
+const square8 = document.getElementById('square8');
+square8.onclick = function() {thisGameActions.placePiece('square8'); };
+
+// Helper functions for form called from HTML
+
+function openPlayerForm() {
+  document.getElementById('add-players-form').style.display = 'block';
+  document.getElementById('form').reset();
+  DisplayController.clearBoardDisplay();
+  DisplayController.clearPlayers();
+  DisplayController.clearWinners();
+  thisGameBoard.clearBoard();
+}
+const openPlayerFormButton = document.getElementById('open-form');
+openPlayerFormButton.onclick = function() { openPlayerForm() };
+
+// Reset Button Functionality called from HTML
+const resetButton = document.getElementById('reset-board-button');
+resetButton.onclick = function() {
+  DisplayController.clearBoardDisplay(),
+  thisGameBoard.clearBoard(), 
+  DisplayController.clearWinners()
+};
+
 /// GAMEBOARD FUNCTIONALITY///////////////////////////////////
 // Logic and  move-checking for gameboard usage, then stored into an array
 // Win logic to check for 3-in-a-row vertically, horizontally, and diagonally. 
@@ -23,17 +78,18 @@ const Gameboard = () =>{
   };
   const addMove = (square, playerPiece) => {
     const row = getRow(square);
+    let thisSquare = square;
     if (row === 1) {
-      square -= 3;
+      thisSquare -= 3;
     } else if (row === 2) {
-      square -= 6;
+      thisSquare -= 6;
     }
-    if (board[row][square] === 'X' || board[row][square] === 'O') {
+    if (board[row][thisSquare] === 'X' || board[row][thisSquare] === 'O') {
       alert('This move has already been played!');
       moveMade = false;
     } else {
-      board[row][square] = playerPiece;
-      console.log(`Added: ${board[row][square]} to ${board[row]}`);
+      board[row][thisSquare] = playerPiece;
+      console.log(`Added: ${board[row][thisSquare]} to ${board[row]}`);
       moveMade = true;
     }
   };
@@ -114,7 +170,7 @@ const Gameboard = () =>{
   };
 };
 
-// PLAYER ACTIONS: functionality for a player adding a piece to the game board
+// Player actions: functionality for a player adding a piece to the game board
 const GameActions = () => {
   let turn = 'O';
   const changePlayer = () => {
@@ -139,16 +195,16 @@ const GameActions = () => {
       console.log(thisGameBoard.printBoard());
       // check for a win
       if (thisGameBoard.checkForWin_X()) {
-        let XWinnerText = `Winner: ${DisplayController.getPlayer1Name()} (${turn})!`;
-        let textNode = document.createTextNode(XWinnerText);
+        const XWinnerText = `Winner: ${DisplayController.getPlayer1Name()} (${turn})!`;
+        const textNode = document.createTextNode(XWinnerText);
         document.getElementById('winnerSection').appendChild(textNode);
       } else if (thisGameBoard.checkForWin_O()) {
-        let OWinnerText = `Winner: ${DisplayController.getPlayer2Name()} (${turn})!`;
-        let textNode = document.createTextNode(OWinnerText);
+        const OWinnerText = `Winner: ${DisplayController.getPlayer2Name()} (${turn})!`;
+        const textNode = document.createTextNode(OWinnerText);
         document.getElementById('winnerSection').appendChild(textNode);
       } else if (thisGameBoard.checkForDraw()) {
-        let drawText = `Draw: ${DisplayController.getPlayer1Name()} (X) and ${DisplayController.getPlayer2Name()} (Y) both lose!`;
-        let textNode = document.createTextNode(drawText);
+        const drawText = `Draw: ${DisplayController.getPlayer1Name()} (X) and ${DisplayController.getPlayer2Name()} (Y) both lose!`;
+        const textNode = document.createTextNode(drawText);
         document.getElementById('winnerSection').appendChild(textNode);
       }
     }
@@ -165,18 +221,18 @@ const DisplayController = (() => {
   const form = document.getElementById('form');
   const addPlayer1 = () => {
     const player1Section = document.getElementById('player1box');
-    let player1element = form.elements['player1'];
-    let player1name = String(player1element.value);
-    let player1 = document.createTextNode(player1name);
+    const player1element = form.elements['player1'];
+    const player1name = String(player1element.value);
+    const player1 = document.createTextNode(player1name);
     player1Section.appendChild(player1);
     console.log(player1name);
     currentPlayer1 = player1name;
   };
   const addPlayer2 = () => {
     const player2Section = document.getElementById('player2box');
-    let player2element = form.elements['player2'];
-    let player2name = String(player2element.value);
-    let player2 = document.createTextNode(player2name);
+    const player2element = form.elements['player2'];
+    const player2name = String(player2element.value);
+    const player2 = document.createTextNode(player2name);
     player2Section.appendChild(player2);
     console.log(player2name);
     currentPlayer2 = player2name;
@@ -184,7 +240,7 @@ const DisplayController = (() => {
   const getPlayer1Name = () => currentPlayer1;
   const getPlayer2Name = () => currentPlayer2;
   const clearBoardDisplay = () => {
-    let elementID = 'square';
+    const elementID = 'square';
     for (let i = 0; i < 9; i++) {
       const thisID = elementID + String(i);
       const squareLocation = document.getElementById(thisID);
@@ -219,57 +275,5 @@ const DisplayController = (() => {
 
 const thisGameActions = GameActions();
 const thisGameBoard = Gameboard();
-
-// TODO: need to make sure button remains if required content isn't filled in
-function closePlayerForm() {
-  document.getElementById('add-players-form').style.display = 'none';
-}
-
-/// ONCLICK FUNCTIONALITIES///////////////////
-// Form closing listener
-const onClose = document.getElementById('close-form');
-onClose.onclick = function () {
-DisplayController.addPlayer1(), 
-DisplayController.addPlayer2(), 
-closePlayerForm()
-};
-
-// Board listerners for each square on gameboard
-const square0 = document.getElementById('square0');
-square0.onclick = function() {thisGameActions.placePiece('square0'); };
-const square1 = document.getElementById('square1');
-square1.onclick = function() {thisGameActions.placePiece('square1'); };
-const square2 = document.getElementById('square2');
-square2.onclick = function() {thisGameActions.placePiece('square2'); };
-const square3 = document.getElementById('square3');
-square3.onclick = function() {thisGameActions.placePiece('square3'); };
-const square4 = document.getElementById('square4');
-square4.onclick = function() {thisGameActions.placePiece('square4'); };
-const square5 = document.getElementById('square5');
-square5.onclick = function() {thisGameActions.placePiece('square5'); };
-const square6 = document.getElementById('square6');
-square6.onclick = function() {thisGameActions.placePiece('square6'); };
-const square7 = document.getElementById('square7');
-square7.onclick = function() {thisGameActions.placePiece('square7'); };
-const square8 = document.getElementById('square8');
-square8.onclick = function() {thisGameActions.placePiece('square8'); };
-
-// Helper functions for form called from HTML
-function openPlayerForm() {
-  document.getElementById('add-players-form').style.display = 'block';
-  document.getElementById('form').reset();
-  DisplayController.clearBoardDisplay();
-  DisplayController.clearPlayers();
-  DisplayController.clearWinners();
-  thisGameBoard.clearBoard();
-}
-
-// Reset Button Functionality called from HTML
-const resetButton = document.getElementById('reset-board-button');
-resetButton.onclick = function() {
-  DisplayController.clearBoardDisplay(),
-  thisGameBoard.clearBoard(), 
-  DisplayController.clearWinners(),
-};
 
 // Optional work for later: create an AI so that a player can play against the computer
