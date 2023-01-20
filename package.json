@@ -1,0 +1,25 @@
+{
+  "name": "js-tictatoe",
+  "version": "1.0.0",
+  "description": "A browser-based Tic Tac Toe game written in Javascript as a part of The Odin Project.",
+  "main": "functions.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CisnePHX/js-tictatoe.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/CisnePHX/js-tictatoe/issues"
+  },
+  "homepage": "https://github.com/CisnePHX/js-tictatoe#readme",
+  "devDependencies": {
+    "eslint": "^8.32.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.27.5"
+  }
+}
