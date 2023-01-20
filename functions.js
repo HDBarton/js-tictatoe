@@ -12,9 +12,10 @@ function closePlayerForm() {
 // Form closing listener
 const onClose = document.getElementById('close-form');
 onClose.onclick = function () {
-  DisplayController.addPlayer1(), 
-  DisplayController.addPlayer2(), 
-  closePlayerForm()
+  DisplayController.addPlayer1();
+  DisplayController.addPlayer2();
+  thisGameBoard.clearBoard();
+  closePlayerForm();
 };
 
 // Board listerners for each square on gameboard
@@ -45,17 +46,16 @@ function openPlayerForm() {
   DisplayController.clearBoardDisplay();
   DisplayController.clearPlayers();
   DisplayController.clearWinners();
-  thisGameBoard.clearBoard();
 }
 const openPlayerFormButton = document.getElementById('open-form');
-openPlayerFormButton.onclick = function() { openPlayerForm() };
+openPlayerFormButton.onclick = function() { openPlayerForm(); };
 
 // Reset Button Functionality called from HTML
 const resetButton = document.getElementById('reset-board-button');
 resetButton.onclick = function() {
-  DisplayController.clearBoardDisplay(),
-  thisGameBoard.clearBoard(), 
-  DisplayController.clearWinners()
+  DisplayController.clearBoardDisplay();
+  thisGameBoard.clearBoard();
+  DisplayController.clearWinners();
 };
 
 /// GAMEBOARD FUNCTIONALITY///////////////////////////////////
