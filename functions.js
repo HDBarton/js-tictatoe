@@ -1,12 +1,14 @@
 // Try to have as little global code as possible
 // TODO:
+// 6.) Add X or O to no name Winner Text
 // 7.) Code cleanup and display functionality reduction
 // 8.) OPTIONAL: Keep game from starting until names have been entered
 
-////////////////////ONCLICK FUNCTIONALITIES (can't seem to be used from within Factory or Module Functions)///////////////////
-//let turn = "X";
+////////////////////ONCLICK FUNCTIONALITIES///////////////////
+//Form closing listener
 const onClose = document.getElementById("close-form");
 onClose.onclick = function() {DisplayController.addPlayer1(), DisplayController.addPlayer2(), closePlayerForm()};
+
 // Board listerners for each square on gameboard
 const square0 = document.getElementById("square0");
 square0.onclick = function() {thisGameActions.placePiece("square0")};
@@ -27,12 +29,8 @@ square7.onclick = function() {thisGameActions.placePiece("square7")};
 const square8 = document.getElementById("square8");
 square8.onclick = function() {thisGameActions.placePiece("square8")};
 
-// Reset Functionality
-const resetButton = document.getElementById("reset-board-button");
-resetButton.onclick = function() {DisplayController.clearBoardDisplay(), thisGameBoard.clearBoard(), DisplayController.clearWinners()};
 
-
-// Helper functions
+// Helper functions for form called from HTML
 function openPlayerForm() {
   document.getElementById("add-players-form").style.display = "block";
   document.getElementById("form").reset(); 
@@ -46,8 +44,12 @@ function closePlayerForm(){
     document.getElementById("add-players-form").style.display = "none";
 }
 
+// Reset Button Functionality called from HTML
+const resetButton = document.getElementById("reset-board-button");
+resetButton.onclick = function() {DisplayController.clearBoardDisplay(), thisGameBoard.clearBoard(), DisplayController.clearWinners()};
+
 /////////////////////////////GAMEBOARD FUNCTIONALITY///////////////////////////////////
-// Logic and  move-checking for gameboard usage
+// Logic and  move-checking for gameboard usage, then stored into an array
 // Win logic to check for 3-in-a-row vertically, horizontally, and diagonally. 
 // If all spaces are full and there is no winner, includes logic for a draw
 const Gameboard = () =>{
@@ -147,9 +149,10 @@ const Gameboard = () =>{
         console.log(board[1]);
         console.log(board[2]);
     };
-    return {addMove, getMoveMade, checkForWin_X, checkForWin_O, checkForDraw, printBoard, clearBoard};
+    return {addMove, getMoveMade, checkForWin_X, checkForWin_O, checkForDraw, clearBoard, printBoard};
 };
 
+//Player actions: functionality for a player adding a piece to the game board
 const GameActions = () => {
     let turn = "O";
     const changePlayer = () => {
@@ -159,6 +162,7 @@ const GameActions = () => {
             turn = "O";
         }
     };
+    const currentPlayer = () => turn;
     //Places piece, checks if gameboard slot alreayd full, adds to gameboard array, checks for a win
     const placePiece = (squareID) => {
         let squareString = String(squareID);
@@ -167,27 +171,26 @@ const GameActions = () => {
         let playerPiece = currentPlayer();
         thisGameBoard.addMove(squareNum, playerPiece);
         if (thisGameBoard.getMoveMade()) {
-            text = document.createTextNode(playerPiece);
+            let text = document.createTextNode(playerPiece);
             document.getElementById(squareID).appendChild(text);
             console.log(thisGameBoard.checkForWin_X(), thisGameBoard.checkForWin_O());
             console.log(thisGameBoard.printBoard());
             //check for a win
             if (thisGameBoard.checkForWin_X()) {
-                XWinnerText = `Winner: ${DisplayController.getPlayer1Name()}!`;
-                textNode = document.createTextNode(XWinnerText);
+                let XWinnerText = `Winner: ${DisplayController.getPlayer1Name()} (${turn})!`;
+                let textNode = document.createTextNode(XWinnerText);
                 document.getElementById("winnerSection").appendChild(textNode);
             } else if (thisGameBoard.checkForWin_O()){
-                XWinnerText = `Winner: ${DisplayController.getPlayer2Name()}!`;
-                textNode = document.createTextNode(XWinnerText);
+                let OWinnerText = `Winner: ${DisplayController.getPlayer2Name()} (${turn})!`;
+                let textNode = document.createTextNode(OWinnerText);
                 document.getElementById("winnerSection").appendChild(textNode);
             } else if (thisGameBoard.checkForDraw()) {
-                drawText = `Draw: ${DisplayController.getPlayer1Name()} and ${DisplayController.getPlayer2Name()} both lose!`;
-                textNode = document.createTextNode(drawText);
+                let drawText = `Draw: ${DisplayController.getPlayer1Name()} (X) and ${DisplayController.getPlayer2Name()} (Y) both lose!`;
+                let textNode = document.createTextNode(drawText);
                 document.getElementById("winnerSection").appendChild(textNode);
             }
         };
-};
-    const currentPlayer = () => turn;
+    };
 
     return {changePlayer, currentPlayer, placePiece};
 }
@@ -240,11 +243,6 @@ const DisplayController = (() => {
         const winnerSection  = document.getElementById('winnerSection');
         winnerSection.removeChild(winnerSection.firstChild);
     };
-    /////////////////ONCLICK appears not to function from within a Factory Function//////////////////////////
-    // const closePopUp = () => {
-    //     const onClose = document.getElementById("close-form");
-    //     onClose.onclick = function() {addPlayer1(), addPlayer2(), closeForm()};
-    // };
 
     return {
         addPlayer1,
@@ -263,31 +261,3 @@ const thisGameBoard = Gameboard();
 
 
 // Optional work for later: create an AI so that a player can play against the computer
-
-//Original playPiece sans function
-// const placePiece = (squareID) => {
-//     let squareString = String(squareID);
-//     let squareNum = parseInt(squareString.slice(6, 7));
-//     thisGameActions.changePlayer();
-//     let playerPiece = thisGameActions.currentPlayer();
-//     thisGameBoard.addMove(squareNum, playerPiece);
-//     if (thisGameBoard.getMoveMade()) {
-//         text = document.createTextNode(playerPiece);
-//         document.getElementById(squareID).appendChild(text);
-//         console.log(thisGameBoard.checkForWin_X(), thisGameBoard.checkForWin_O());
-//         console.log(thisGameBoard.printBoard());
-//         //check for a win
-//         if (thisGameBoard.checkForWin_X()) {
-//             XWinnerText = `Winner: ${DisplayController.getPlayer1Name()}!`;
-//             textNode = document.createTextNode(XWinnerText);
-//             document.getElementById("winnerSection").appendChild(textNode);
-//         } else if (thisGameBoard.checkForWin_O()){
-//             XWinnerText = `Winner: ${DisplayController.getPlayer2Name()}!`;
-//             textNode = document.createTextNode(XWinnerText);
-//             document.getElementById("winnerSection").appendChild(textNode);
-//         } else if (thisGameBoard.checkForDraw()) {
-//             drawText = `Draw: ${DisplayController.getPlayer1Name()} and ${DisplayController.getPlayer2Name()} both lose!`;
-//             textNode = document.createTextNode(drawText);
-//             document.getElementById("winnerSection").appendChild(textNode);
-//         }
-//     };
