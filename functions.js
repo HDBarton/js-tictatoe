@@ -73,11 +73,11 @@ function placePiece(squareID) {
         }
     };
 };
+
 /////////////////////////////GAMEBOARD FUNCTIONALITY///////////////////////////////////
+// Logic and  move-checking for gameboard usage
 // Win logic to check for 3-in-a-row vertically, horizontally, and diagonally. 
-// If all spaces are full and there is no winner, logic is here for a draw
-// MODULE
-// X = 1, Y = 2
+// If all spaces are full and there is no winner, includes logic for a draw
 const Gameboard = () =>{
     let board = [["", "", ""], ["", "", ""], ["", "", ""]];
     let moveMade = true;
@@ -177,8 +177,6 @@ const Gameboard = () =>{
     };
     return {addMove, getMoveMade, checkForWin_X, checkForWin_O, checkForDraw, printBoard, clearBoard};
 };
-////////////////////////START GAMEBOARD//////////////////////////////
-const thisGameBoard = Gameboard();
 
 const GameActions = () => {
     let turn = "O";
@@ -193,13 +191,9 @@ const GameActions = () => {
 
     return {changePlayer, currentPlayer};
 }
-////////////////////START GAME ACTIONS////////////////////////////////////
-const thisGameActions = GameActions();
 
-// renders gameboard array to webpage
-// SUGGESTED MODULE
-
-//get and display player names
+////////////////////GAME DISPLAY////////////////////////////////////
+// renders gameboard and display actions to webpage
 const DisplayController = (() => {
     let currentPlayer1 = "";
     let currentPlayer2 = "";
@@ -262,5 +256,10 @@ const DisplayController = (() => {
         clearWinners
     };
 })();
+
+const thisGameActions = GameActions();
+const thisGameBoard = Gameboard();
+
+
 
 // Optional work for later: create an AI so that a player can play against the computer
