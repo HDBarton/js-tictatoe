@@ -9,23 +9,23 @@ const onClose = document.getElementById("close-form");
 onClose.onclick = function() {DisplayController.addPlayer1(), DisplayController.addPlayer2(), closePlayerForm()};
 // Board listerners for each square on gameboard
 const square0 = document.getElementById("square0");
-square0.onclick = function() {placePiece("square0")};
+square0.onclick = function() {thisGameActions.placePiece("square0")};
 const square1 = document.getElementById("square1");
-square1.onclick = function() {placePiece("square1")};
+square1.onclick = function() {thisGameActions.placePiece("square1")};
 const square2 = document.getElementById("square2");
-square2.onclick = function() {placePiece("square2")};
+square2.onclick = function() {thisGameActions.placePiece("square2")};
 const square3 = document.getElementById("square3");
-square3.onclick = function() {placePiece("square3")};
+square3.onclick = function() {thisGameActions.placePiece("square3")};
 const square4 = document.getElementById("square4");
-square4.onclick = function() {placePiece("square4")};
+square4.onclick = function() {thisGameActions.placePiece("square4")};
 const square5 = document.getElementById("square5");
-square5.onclick = function() {placePiece("square5")};
+square5.onclick = function() {thisGameActions.placePiece("square5")};
 const square6 = document.getElementById("square6");
-square6.onclick = function() {placePiece("square6")};
+square6.onclick = function() {thisGameActions.placePiece("square6")};
 const square7 = document.getElementById("square7");
-square7.onclick = function() {placePiece("square7")};
+square7.onclick = function() {thisGameActions.placePiece("square7")};
 const square8 = document.getElementById("square8");
-square8.onclick = function() {placePiece("square8")};
+square8.onclick = function() {thisGameActions.placePiece("square8")};
 
 // Reset Functionality
 const resetButton = document.getElementById("reset-board-button");
@@ -45,34 +45,6 @@ function openPlayerForm() {
 function closePlayerForm(){
     document.getElementById("add-players-form").style.display = "none";
 }
-//Places piece, checks if gameboard slot alreayd full, adds to gameboard array, checks for a win
-function placePiece(squareID) {
-    let squareString = String(squareID);
-    let squareNum = parseInt(squareString.slice(6, 7));
-    thisGameActions.changePlayer();
-    let playerPiece = thisGameActions.currentPlayer();
-    thisGameBoard.addMove(squareNum, playerPiece);
-    if (thisGameBoard.getMoveMade()) {
-        text = document.createTextNode(playerPiece);
-        document.getElementById(squareID).appendChild(text);
-        console.log(thisGameBoard.checkForWin_X(), thisGameBoard.checkForWin_O());
-        console.log(thisGameBoard.printBoard());
-        //check for a win
-        if (thisGameBoard.checkForWin_X()) {
-            XWinnerText = `Winner: ${DisplayController.getPlayer1Name()}!`;
-            textNode = document.createTextNode(XWinnerText);
-            document.getElementById("winnerSection").appendChild(textNode);
-        } else if (thisGameBoard.checkForWin_O()){
-            XWinnerText = `Winner: ${DisplayController.getPlayer2Name()}!`;
-            textNode = document.createTextNode(XWinnerText);
-            document.getElementById("winnerSection").appendChild(textNode);
-        } else if (thisGameBoard.checkForDraw()) {
-            drawText = `Draw: ${DisplayController.getPlayer1Name()} and ${DisplayController.getPlayer2Name()} both lose!`;
-            textNode = document.createTextNode(drawText);
-            document.getElementById("winnerSection").appendChild(textNode);
-        }
-    };
-};
 
 /////////////////////////////GAMEBOARD FUNCTIONALITY///////////////////////////////////
 // Logic and  move-checking for gameboard usage
@@ -187,9 +159,37 @@ const GameActions = () => {
             turn = "O";
         }
     };
+    //Places piece, checks if gameboard slot alreayd full, adds to gameboard array, checks for a win
+    const placePiece = (squareID) => {
+        let squareString = String(squareID);
+        let squareNum = parseInt(squareString.slice(6, 7));
+        changePlayer();
+        let playerPiece = currentPlayer();
+        thisGameBoard.addMove(squareNum, playerPiece);
+        if (thisGameBoard.getMoveMade()) {
+            text = document.createTextNode(playerPiece);
+            document.getElementById(squareID).appendChild(text);
+            console.log(thisGameBoard.checkForWin_X(), thisGameBoard.checkForWin_O());
+            console.log(thisGameBoard.printBoard());
+            //check for a win
+            if (thisGameBoard.checkForWin_X()) {
+                XWinnerText = `Winner: ${DisplayController.getPlayer1Name()}!`;
+                textNode = document.createTextNode(XWinnerText);
+                document.getElementById("winnerSection").appendChild(textNode);
+            } else if (thisGameBoard.checkForWin_O()){
+                XWinnerText = `Winner: ${DisplayController.getPlayer2Name()}!`;
+                textNode = document.createTextNode(XWinnerText);
+                document.getElementById("winnerSection").appendChild(textNode);
+            } else if (thisGameBoard.checkForDraw()) {
+                drawText = `Draw: ${DisplayController.getPlayer1Name()} and ${DisplayController.getPlayer2Name()} both lose!`;
+                textNode = document.createTextNode(drawText);
+                document.getElementById("winnerSection").appendChild(textNode);
+            }
+        };
+};
     const currentPlayer = () => turn;
 
-    return {changePlayer, currentPlayer};
+    return {changePlayer, currentPlayer, placePiece};
 }
 
 ////////////////////GAME DISPLAY////////////////////////////////////
@@ -263,3 +263,31 @@ const thisGameBoard = Gameboard();
 
 
 // Optional work for later: create an AI so that a player can play against the computer
+
+//Original playPiece sans function
+// const placePiece = (squareID) => {
+//     let squareString = String(squareID);
+//     let squareNum = parseInt(squareString.slice(6, 7));
+//     thisGameActions.changePlayer();
+//     let playerPiece = thisGameActions.currentPlayer();
+//     thisGameBoard.addMove(squareNum, playerPiece);
+//     if (thisGameBoard.getMoveMade()) {
+//         text = document.createTextNode(playerPiece);
+//         document.getElementById(squareID).appendChild(text);
+//         console.log(thisGameBoard.checkForWin_X(), thisGameBoard.checkForWin_O());
+//         console.log(thisGameBoard.printBoard());
+//         //check for a win
+//         if (thisGameBoard.checkForWin_X()) {
+//             XWinnerText = `Winner: ${DisplayController.getPlayer1Name()}!`;
+//             textNode = document.createTextNode(XWinnerText);
+//             document.getElementById("winnerSection").appendChild(textNode);
+//         } else if (thisGameBoard.checkForWin_O()){
+//             XWinnerText = `Winner: ${DisplayController.getPlayer2Name()}!`;
+//             textNode = document.createTextNode(XWinnerText);
+//             document.getElementById("winnerSection").appendChild(textNode);
+//         } else if (thisGameBoard.checkForDraw()) {
+//             drawText = `Draw: ${DisplayController.getPlayer1Name()} and ${DisplayController.getPlayer2Name()} both lose!`;
+//             textNode = document.createTextNode(drawText);
+//             document.getElementById("winnerSection").appendChild(textNode);
+//         }
+//     };
