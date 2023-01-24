@@ -18,22 +18,26 @@ h1{
 #titleTTT{
     display: flex;
     flex-direction: row;
+    margin: 0px;
 }
 #Tic, #Tac, #Toe{
-    padding: 5px;
+    padding: 0px;
+    margin: 0px;
 }
 #Tac{
-    padding-top: 25px;
+    padding-top: 15px;
     padding-left: 20px;
     padding-right: 20px;
+    margin-left: 10px;
+    margin-right: 10px;
 }
 #Toe{
-    padding-top: 40px;
+    padding-top: 30px;
 }
 h3{
     align-items: center;
     margin: 0px;
-    padding-bottom: 0px;
+    padding: 0px;
 }
 #playerSection{
     display: flex;
@@ -71,8 +75,8 @@ h3{
 }
 button{
     background-color:#cef5f0;
-    margin-bottom: 0px;
-    margin-top: 0px;
+    margin-bottom: 5px;
+    margin-top: 5px;
     padding: 5px;
     border-radius: 10px;
     font-size: 15px;
